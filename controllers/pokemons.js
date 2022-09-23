@@ -8,13 +8,30 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    const pokeId = parseInt(req.params.id);
-    const selectedPoke = Pokemon.findById(pokeId)
-    res.send(selectedPoke);
+    try {
+        const pokeId = parseInt(req.params.id);
+        const selectedPoke = Pokemon.findById(pokeId)
+        if (!selectedPoke) {
+            throw new Error('This pokemon does not exist!')
+        }
+        res.send(selectedPoke);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send({message: err.message})
+    }
 })
 
 router.post('/', (req, res) => {
-    res.status(405).send('Not Allowed yet!');
+    const data = req.body;
+    const newPokemon = Pokemon.create(data);
+    res.status(201).send(newPokemon);
+})
+
+router.delete('/:id', (req, res) => {
+    const pokeId = parseInt(req.params.id);
+    const pokeToDestroy = Pokemon.findById(pokeId);
+    pokeToDestroy.destroy();
+    res.status(204).send();
 })
 
 module.exports = router;

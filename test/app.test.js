@@ -32,7 +32,23 @@ describe('API server', () => {
         }, done)
     })
 
-    it('responds to invalid methods with 405', (done) => {
-        request(api).post('/pokemon').expect(405, done)
+    let testPoke = {
+        name: 'Pikachu',
+        frontImg: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png", 
+        moves: ["thunder", "thunderbolt", "mega punch"]
+    };
+
+    it('reponds to a post request with status code 201', (done) => {
+        request(api)
+            .post('/pokemon')
+            .send(testPoke)
+            .expect(201)
+            .expect({ id: 4, ...testPoke }, done)
+    })
+
+    it('responds to delete /pokemon/:id with status 204', async () => {
+        await request(api).delete('/pokemon/4').expect(204);
+        const updatedPokes = await request(api).get('/pokemon');
+        expect(updatedPokes.body.length).toBe(3);
     })
 })

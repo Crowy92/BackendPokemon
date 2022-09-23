@@ -19,13 +19,13 @@ const fetchAsync = async (index) => {
     }
 }
 
-fetchAsync(1).catch(err => console.log(err))
-
 let index = 1;
+fetchAsync(index).catch(err => console.log(err))
+
 const button = document.getElementById('nextPokemon');
 button.addEventListener('click', () =>{
     index++;
-    if (index == 4) {
+    if (index == 5) {
         index = 1;
     }
     fetchAsync(index).catch(err => console.log(err))
