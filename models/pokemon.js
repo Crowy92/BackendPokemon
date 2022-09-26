@@ -14,6 +14,8 @@ class Pokemon {
     }
 
     static findById(id){
+        console.log("**************pokemon.js - model****************");
+        console.log(id);
         const pokeData = pokemonData.filter((poke) => poke.id == id)[0];
         if (!pokeData){
             return;

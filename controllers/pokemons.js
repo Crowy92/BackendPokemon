@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+    console.log("***********pokemon.js - controller*************");
+    console.log(req.params.id);
     try {
         const pokeId = parseInt(req.params.id);
         const selectedPoke = Pokemon.findById(pokeId)

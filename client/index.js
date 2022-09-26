@@ -25,6 +25,7 @@ fetchAsync(index).catch(err => console.log(err))
 const button = document.getElementById('nextPokemon');
 button.addEventListener('click', () =>{
     index++;
+    console.log("hi");
     if (index == 5) {
         index = 1;
     }
